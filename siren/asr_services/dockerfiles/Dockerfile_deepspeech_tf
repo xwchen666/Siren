@@ -1,0 +1,10 @@
+FROM tensorflow/tensorflow:1.14.0-gpu-py3
+
+RUN apt-get update && apt-get install -y \
+	git \
+	libsndfile1 \
+	wget
+
+RUN pip install librosa matplotlib pandas progressbar torch docopt==0.6.2 ruamel.yaml
+
+WORKDIR /home/xiaowei/

@@ -1,0 +1,12 @@
+models:
+        - WebService:
+                host: '172.17.0.8'
+                port: 6006
+        - DeepSpeechTF:
+                ckpt_path: '../test/checkpoints/deepspeech-0.6.0-checkpoint/best_dev-233784'
+                v: 6
+                decoder_name: 'greedy'
+
+augments:
+        - null
+

@@ -1,0 +1,82 @@
+DeepSpeechTF:
+        parameters:
+                version:
+                        short_name: "v"
+                        type: "int"
+                        default: 6
+                        choices: [5, 6]
+                        help: "Version of Mozilla DeepSpeech"
+                ckpt_path:
+                        type: "str"
+                        help: "Path of the checkpoint files"
+                batch_size:
+                        type: "int"
+                        default: null
+                        help: "Batch size of input tensor"
+                decoder_name:
+                        type: "str"
+                        default: "greedy"
+                        choices: ['greedy', 'beamsearch', 'beamsearch_lm']
+                        help: "Name of the decoder"
+                lm_path:
+                        type: "str"
+                        default: null
+                        help: "Path to the language model"
+                beam_width:
+                        type: "int"
+                        default: 500 
+                        help: "Beam width of the beam search decoder"
+        module_name: 'asr_collections.deepspeech_tf.model_wrapper'
+        class_name:  'DeepSpeechTFModel'
+
+DeepSpeechPT:
+        parameters:
+                ckpt_path:
+                        type: "str"
+                        help: "Path of the checkpoint files"
+                device:
+                        type: "str"
+                        default: "cpu"
+                        choices: ["cpu", "cuda"]
+                        help: "On which device the computation will be"
+                decoder_name:
+                        type: "str"
+                        default: "greedy"
+                        choices: ['greedy', 'beamsearch_lm']
+                        help: "Name of the decoder"
+                lm_path:
+                        type: "str"
+                        default: null
+                        help: "Path to the language model"
+                beam_width:
+                        type: "int"
+                        default: 500 
+                        help: "Beam width of the beam search decoder"
+        module_name: 'asr_collections.deepspeech_pt.model_wrapper'
+        class_name:  'DeepSpeechPTModel'
+
+Jasper:
+        parameters:
+                model_config:
+                        type: 'str'
+                        help: 'Model configuration file with extension .yaml'
+                ckpt_dir:
+                        type: 'str'
+                        help: 'The dir which contains the ckpt files for JasperEncoder and JasperDecoder'
+                vocab_file:
+                        type: 'str'
+                        default: null
+                        help: 'File contains all the single characters'
+        module_name: 'asr_collections.nemo_asr.model_wrapper'
+        class_name:  'JasperModel'
+
+WebService:
+        parameters:
+                host:
+                        type: 'str'
+                        help: 'Host server of the ASR service'
+                port:
+                        type: 'int'
+                        help: 'Port of the ASR service'
+        module_name: 'asr_services.client'
+        class_name:  'WebModel'

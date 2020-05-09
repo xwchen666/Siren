@@ -1,0 +1,9 @@
+models:
+        - WebService:
+                host: '172.17.0.8'
+                port: 6006
+augments:
+        - null
+        - filter:
+                filter_name: 'moving_average'
+                window_size: 11

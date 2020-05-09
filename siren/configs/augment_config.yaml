@@ -1,0 +1,162 @@
+time_add_random_noise:
+  module_name: "augment.time_augment.add_random_noise"
+  class_name: "AddRandomNoise"
+  parameters:
+    distribution:
+      short_name: "d"
+      type: "str"
+      default: "normal"
+      choices:
+      - "normal"
+      - "uniform"
+      - "gamma"
+      help: "Distribution of random noise"
+    snr:
+      type: "float"
+      default: 40
+      help: "Signal-noise-ratio"
+
+filter:
+  module_name: "augment.time_augment.filter"
+  class_name: "Filter"
+  parameters:
+    filter_name:
+      type: "str"
+      choices:
+      - "moving_average"
+      - "randomized_moving_average"
+      - "recursive_average"
+      - "randomized_recursive_average"
+      - "phone_effect"
+      - "echo_addition"
+      - "room_reverberation"
+      help: "Name of the filter"
+    window_size:
+      short_name: "ws"
+      type: "int"
+      default: 7
+      help: "Window size of the filter"
+    use_fft:
+      type: "bool"
+      default: false
+      help: "Use the fft method or not"
+
+non_recursive_dynamic_filter:
+  module_name: "augment.time_augment.conv"
+  class_name: "NonRecursiveDynamicFilter"
+  parameters:
+    window_size:
+      short_name: "ws"
+      type: "int"
+      default: 7
+      help: "Window size of the filter"
+    randomized:
+      type: "bool"
+      default: false
+      help: "The filter coefficient is updated each time the forward function is called\
+        \ if True"
+
+recursive_dynamic_filter:
+  module_name: "augment.time_augment.conv"
+  class_name: "RecursiveDynamicFilter"
+  parameters:
+    window_size:
+      short_name: "ws"
+      type: "int"
+      default: 7
+      help: "Window size of the filter"
+    randomized:
+      type: "bool"
+      default: false
+      help: "The filter coefficient is updated each time the forward function is called\
+        \ if True"
+    impulse_len:
+      type: "int"
+      default: 50
+      help: "The length of the impulse response"
+
+quantization:
+  module_name: "augment.time_augment.quantization"
+  class_name: "Quantization"
+  paramters:
+    q:
+      type: "int"
+      default: 128
+      choices: [128, 256, 512, 1024]
+      help: "Quantization scale"
+
+random_crop:
+  module_name: "augment.time_augment.random_crop_and_insert"
+  class_name: "RandomCrop"
+  parameters:
+    crop_num:
+      default: 1000
+      type: "int"
+      help: "Number of crop indices"
+    bulk:
+      default: false
+      type: "bool"
+      help: "The cropped indices are in a bulk or not"
+
+random_insert:
+  module_name: "augment.time_augment.random_crop_and_insert"
+  class_name: "RandomInsert"
+  parameters:
+    insert_num:
+      default: 1000
+      type: "int"
+      help: "Number of insert indices"
+    bulk:
+      default: false
+      type: "bool"
+      help: "The inserted indices are in a bulk or not"
+
+random_mask:
+  module_name: "augment.time_augment.random_crop_and_insert"
+  class_name: "RandomMask"
+  parameters:
+    mask_num:
+      default: 1000
+      type: "int"
+      help: "The number of masked indices"
+    bulk:
+      default: false
+      type: "bool"
+      help: "The masked indices are in a bulk or not"
+
+resampling:
+  module_name: "augment.time_augment.resampling"
+  class_name: "Resample"
+  parameters:
+    rescale:
+      type: "float"
+      default: 0.5
+      help: "The rescale ratio of the resampling method"
+
+spec_add_random_noise:
+  module_name: "augment.spec_augment.spec_add_noise"
+  class_name: "SpecAddRandomNoise"
+  parameters:
+    frame_length:
+      type: "float"
+      default: 32
+      help: "Length of the frame in microseconds"
+    frame_step:
+      type: "float"
+      default: 32
+      help: "Step of the frame in microseconds"
+    distribution:
+      type: "str"
+      choices:
+      - "normal"
+      - "uniform"
+      - "gamma"
+      default: "normal"
+      help: "The distribution of the random noise"
+    noise_type:
+      type: "str"
+      choices:
+      - "additive"
+      - "non_additive"
+      default: "additive"
+      help: "The type of the random noise"
