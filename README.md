@@ -185,13 +185,11 @@ A more recommened way is to set up the ASR as web service on the docker. In this
 	```
 	    
   * Use exec command to get the shell of the container
-  
         ```
     	docker exec -ti siren_container zsh
 	```
 	    
   * Go the examples dir
-  
         ```
 	cd /workspace/Siren/examples/
 	```
