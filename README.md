@@ -71,7 +71,7 @@
 - Install nvidia-docker
 - Clone current repo, and put it in your home dir
   - cd ~
-  - git clone http://gitlab.baidu.com/xiaoweichen01/Siren.git
+  - git clone https://github.com/xwchen666/Siren.git
   - cd Siren
 - Download checkpoints for ASR models
   - mkdir checkpoints 
@@ -88,6 +88,7 @@
 	| DeepSpeechTF 	| Dockerfile_deepspeech_tf 	|
 	| DeepSpeechPT 	| Dockerfile_deepspeech_pt 	|
 	| Jasper       	| Dockerfile_nemo          	|
+
   All the docker file could be found in the dir 'siren/asr_services/dockerfiles'
 
 * Step 2: Create the docker image from the docker file. We use model `Jasper` as an example. The docker file for `Jasper` is `Dockerfile_nemo`. We create a docker image for `Jasper`
@@ -150,7 +151,6 @@ A more recommened way is to set up the ASR as web service on the docker. In this
 	
 * Transcribe audios  
   - Transcribe from commandline: (Suppose the ip address you get from previous step is 172.17.0.8, and `sample.wav` is in current dir)
- 
         ```
         curl -X POST -F file=@"sample.wav" 172.17.0.8:6006/transcribe
         ```
@@ -175,28 +175,26 @@ A more recommened way is to set up the ASR as web service on the docker. In this
 - **Attack tasks.** Run all the attack tasks in the docker container built from the docker file `asr_services/dockerfiles/Dockerfile_core`
 
   * Build docker images
-  
-  	    ```
-	    docker image build -t siren:v2 - < siren/asr_services/dockerfiles/Dockerfile_core
-  	    ```
+  	```
+	docker image build -t siren:v2 - < siren/asr_services/dockerfiles/Dockerfile_core
+  	```
   	    
   * Run container in detached mode
-  
         ```
-	    nvidia-docker run --name siren_container -p 127.0.0.1:6008:6008 --shm-size=1g --ulimit memlock=-1 --ulimit stack=67109964 -t -d -v /home/xiaowei:/workspace -it siren:v2
-	    ```
+	nvidia-docker run --name siren_container -p 127.0.0.1:6008:6008 --shm-size=1g --ulimit memlock=-1 --ulimit stack=67109964 -t -d -v /home/xiaowei:/workspace -it siren:v2
+	```
 	    
   * Use exec command to get the shell of the container
   
         ```
     	docker exec -ti siren_container zsh
-	    ```
+	```
 	    
   * Go the examples dir
   
         ```
-	    cd /workspace/Siren/examples/
-	    ```
+	cd /workspace/Siren/examples/
+	```
 
 ### Introduction to the command line tool
 We provide a python script for user to generate the adversarial examples through the command line easily.
